@@ -20,8 +20,19 @@ const init = async()=> {
   await client.connect();
   console.log('connected to database');
   const SQL = `
-    SQL SETUP AND SEED
+    DROP TABLE IF EXISTS movies;
+    CREATE TABLE movies(
+      id SERIAL PRIMARY KEY,
+      title VARCHAR(255),
+      stars INT
+    );
+    INSERT INTO movies (title, stars) VALUES ('Star Wars: Revenge of the Sith', 4);
+    INSERT INTO movies (title, stars) VALUES ('Star Wars: The Last Jedi', 1);
+    INSERT INTO movies (title, stars) VALUES ('Star Wars: The Force Awakens', 2);
+    INSERT INTO movies (title, stars) VALUES ('It (2017)', 3);
+    INSERT INTO movies (title, stars) VALUES ('How to Train Your Dragon', 5);
   `;
+  await client.query(SQL);
   console.log('create your tables and seed data');
 
   const port = process.env.PORT || 3000;
