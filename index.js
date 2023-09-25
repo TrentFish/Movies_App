@@ -65,6 +65,22 @@ app.delete('/api/movies/:id', async(req, res, next) => {
   }
 });
 
+app.post('/api/movies', async(req, res, next) => {
+  
+  try {
+    const SQL = `
+      INSERT INTO movies(title, stars)
+      VALUES($1, $2)
+      RETURNING *
+      `;
+
+    const response = await client.query(SQL, [req.body.title, req.body.stars]);
+    res.send(response.rows[0])
+  }catch (error) {
+      next(error);
+  }
+});
+
 app.use((err, req, res, next) => {
   res.status(500).send(err.message)
 })

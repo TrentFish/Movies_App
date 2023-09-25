@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import axios from 'axios';
+import AddMovies from './AddMovie';
 
 const App = ()=> {
   const [movies, setMovies] = useState([])
@@ -66,6 +67,7 @@ const deleteMovie = async (movie) => {
     <div>
       <h1>Some Movies</h1>
       <p>{error ? error: ""}</p>
+      <AddMovies movies={movies} setMovies={setMovies}/>
       <ul>
         {
           movies.map((movie) => {
