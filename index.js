@@ -50,6 +50,21 @@ app.put('/api/movies/:id', async(req, res, next) => {
   }
 });
 
+app.delete('/api/movies/:id', async(req, res, next) => {
+  try {
+      const SQL = `
+      DELETE 
+      FROM movies
+      WHERE id = $1
+      `;
+
+      const response = await client.query(SQL,[req.params.id]);
+      res.send(response);
+  }catch (error) {
+      next(error);
+  }
+});
+
 app.use((err, req, res, next) => {
   res.status(500).send(err.message)
 })
